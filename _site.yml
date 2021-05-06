@@ -1,0 +1,18 @@
+name: "Jimena's Website"
+output_dir: "."
+navbar:
+  title: "Jimena Velazquez de Leon"
+  left:
+   left:
+    - text: "Introduction"
+      href: Introduction.html
+    - text: "Methodology"
+      href: Methodology.html
+    - text: "Results"
+      href: Results.html
+    - text: "Conclusion"
+      href: Conclusion.html
+output:
+  html_document:
+    theme: simplex
+    highlight: textmate
