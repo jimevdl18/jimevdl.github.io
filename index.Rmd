@@ -1,5 +1,5 @@
 ---
-title: "index"
+title: "Homework 10"
 author: "Jimena Velazquez de Leon"
 date: "5/7/2021"
 output: html_document
@@ -121,4 +121,127 @@ plot(newnetwork_4, edge.arrow.size = 0.1, vertex.size = 3,
 newnetwork_5 <- graph_from_data_frame(d = edgelist_5, vertices = nodelist, directed = TRUE)
 plot(newnetwork_5, edge.arrow.size = 0.1, vertex.size = 3, 
      main = "Tie Type 5 Network - Asks Me for Help")
+```
+
+
+**Network Centrality Measures by Tie Type**
+
+We then calculate measures centrality. We present results from centrality and
+edge density, since their results are easier to interpret. 
+
+Among the networks based on 5 tie types, type 4 (I ask for help) has 
+the highest measures of centrality. Type 5 (Asks me for help) has
+one of the lowest measures of centrality. 
+
+```{r, include = F}
+nodelist2 <- nodelist
+# All centrality measures for overall network
+degree(newnetwork, mode="in")
+nodelist2['degree_closeness'] <- closeness(newnetwork, mode="all", weights=NA)
+nodelist2['degree_betweeness'] <- betweenness(newnetwork, directed=T, weights=NA)
+
+overall_centrality <- centr_degree(newnetwork, mode="in", normalized=T)
+overall_density <- edge_density(newnetwork, loops=F)
+
+# Centrality measures for tie1
+degree(newnetwork_1, mode="in")
+closeness(newnetwork_1, mode="all", weights=NA)
+betweenness(newnetwork_1, directed=T, weights=NA)
+centrality1 <- centr_degree(newnetwork_1, mode="in", normalized=T)
+density1 <- edge_density(newnetwork_1, loops=F)
+
+# Centrality measures for tie2
+degree(newnetwork_2, mode="in")
+closeness(newnetwork_2, mode="all", weights=NA)
+betweenness(newnetwork_2, directed=T, weights=NA)
+centrality2 <- centr_degree(newnetwork_2, mode="in", normalized=T)
+density2 <- edge_density(newnetwork_2, loops=F)
+
+# Centrality measures for tie3
+degree(newnetwork_3, mode="in")
+closeness(newnetwork_3, mode="all", weights=NA)
+betweenness(newnetwork_3, directed=T, weights=NA)
+centrality3 <- centr_degree(newnetwork_3, mode="in", normalized=T)
+density3 <- edge_density(newnetwork_3, loops=F)
+
+# Centrality measures for tie4
+degree(newnetwork_4, mode="in")
+closeness(newnetwork_4, mode="all", weights=NA)
+betweenness(newnetwork_4, directed=T, weights=NA)
+centrality4 <- centr_degree(newnetwork_4, mode="in", normalized=T)
+density4 <- edge_density(newnetwork_4, loops=F)
+
+# Centrality measures for tie5
+degree(newnetwork_5, mode="in")
+closeness(newnetwork_5, mode="all", weights=NA)
+betweenness(newnetwork_5, directed=T, weights=NA)
+centrality5 <- centr_degree(newnetwork_5, mode="in", normalized=T)
+density5 <- edge_density(newnetwork_5, loops=F)
+```
+
+
+```{r, echo = F}
+cat("Overall network centralization:", overall_centrality$centralization, "\n")
+cat("Overall network edge density:", overall_density, "\n")
+
+cat("Tie type 1 network centralization:", centrality1$centralization, "\n")
+cat("Tie type 1 network edge density:", density1, "\n")
+
+cat("Tie type 2 network centralization:", centrality2$centralization, "\n")
+cat("Tie type 2 network edge density:", density2, "\n")
+
+cat("Tie type 3 network centralization:", centrality3$centralization, "\n")
+cat("Tie type 3 network edge density:", density3, "\n")
+
+cat("Tie type 4 network centralization:", centrality4$centralization, "\n")
+cat("Tie type 4 network edge density:", density4, "\n")
+
+cat("Tie type 5 network centralization:", centrality5$centralization, "\n")
+cat("Tie type 5 network edge density:", density5, "\n")
+```
+
+**Network Similarity Measures by Tie Type**
+
+Next, we calculate assortativity to determine which network generates the most
+similar network, most similar network based on introversion, and most
+dissimilar network based on introversion.
+
+Overall, type 1 network (texted last week) has high measure of similarity. 
+
+Type 1 network also generates the most similar network in terms of introversion,
+since it has the highest introversion-based assortativity value 0.1348994.
+
+Tie Type 3 (is my friend) is the most dissimilar network in terms of introversion
+since it has the lowest introversion-based assortativity value -0.02886641.
+This means people are friends with each other regardless of whether they are
+introverted or not.
+
+```{r, echo = F}
+# Similarity measures of overall network
+node <- nodelist
+node[is.na(node)] <- -1
+net <- graph_from_data_frame(d = edgelist, vertices = node, directed = TRUE)
+cat("Overall network assortativity:", assortativity_degree(newnetwork, directed=T) , "\n")
+cat("Overall network assortativity based on Extraversion/Introversion:", 
+    assortativity(newnetwork, V(net)$Extraversion, directed=T) , "\n")
+
+cat("Tie type 1 network assortativity:", assortativity_degree(newnetwork_1, directed=T)  , "\n")
+cat("Tie type 1 network assortativity based on Extraversion/Introversion:", 
+    assortativity(newnetwork_1, V(net)$Extraversion, directed=T) , "\n")
+
+cat("Tie type 2 network assortativity:", assortativity_degree(newnetwork_2, directed=T)  , "\n")
+cat("Tie type 2 network assortativity based on Extraversion/Introversion:", 
+    assortativity(newnetwork_2, V(net)$Extraversion, directed=T) , "\n")
+
+cat("Tie type 3 network assortativity:", assortativity_degree(newnetwork_3, directed=T)  , "\n")
+cat("Tie type 3 network assortativity based on Extraversion/Introversion:", 
+    assortativity(newnetwork_3, V(net)$Extraversion, directed=T) , "\n")
+
+cat("Tie type 4 network assortativity:", assortativity_degree(newnetwork_4, directed=T)  , "\n")
+cat("Tie type 4 network assortativity based on Extraversion/Introversion:", 
+    assortativity(newnetwork_4, V(net)$Extraversion, directed=T) , "\n")
+
+cat("Tie type 5 network assortativity:", assortativity_degree(newnetwork_5, directed=T)  , "\n")
+cat("Tie type 5 network assortativity based on Extraversion/Introversion:", 
+    assortativity(newnetwork_5, V(net)$Extraversion, directed=T) , "\n")
 ```

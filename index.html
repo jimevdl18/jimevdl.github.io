@@ -12,7 +12,7 @@
 <meta name="author" content="Jimena Velazquez de Leon" />
 
 
-<title>index</title>
+<title>Homework 10</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -298,7 +298,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">index</h1>
+<h1 class="title toc-ignore">Homework 10</h1>
 <h4 class="author">Jimena Velazquez de Leon</h4>
 <h4 class="date">5/7/2021</h4>
 
@@ -317,6 +317,38 @@ $(document).ready(function () {
 <p><strong>Network Visualization by Tie Type</strong></p>
 <p>We start our analysis by visualizing the overall network and the 5 networks filtered by the 5 tie types. It’s interesting to observe that networks based on tie type 3, 4, 5 have relatively more isolated nodes. These ties describes friendships and relations of asking/being asked for help. Perhaps remote learning has impacted people’s ability to make friends in the program.</p>
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-2-2.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-2-3.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-2-4.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-2-5.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-2-6.png" width="672" /></p>
+<p><strong>Network Centrality Measures by Tie Type</strong></p>
+<p>We then calculate measures centrality. We present results from centrality and edge density, since their results are easier to interpret.</p>
+<p>Among the networks based on 5 tie types, type 4 (I ask for help) has the highest measures of centrality. Type 5 (Asks me for help) has one of the lowest measures of centrality.</p>
+<pre><code>## Overall network centralization: 0.7737179</code></pre>
+<pre><code>## Overall network edge density: 0.4570513</code></pre>
+<pre><code>## Tie type 1 network centralization: 0.1615385</code></pre>
+<pre><code>## Tie type 1 network edge density: 0.09487179</code></pre>
+<pre><code>## Tie type 2 network centralization: 0.1942308</code></pre>
+<pre><code>## Tie type 2 network edge density: 0.08782051</code></pre>
+<pre><code>## Tie type 3 network centralization: 0.1442308</code></pre>
+<pre><code>## Tie type 3 network edge density: 0.08653846</code></pre>
+<pre><code>## Tie type 4 network centralization: 0.2955128</code></pre>
+<pre><code>## Tie type 4 network edge density: 0.1147436</code></pre>
+<pre><code>## Tie type 5 network centralization: 0.1576923</code></pre>
+<pre><code>## Tie type 5 network edge density: 0.07307692</code></pre>
+<p><strong>Network Similarity Measures by Tie Type</strong></p>
+<p>Next, we calculate assortativity to determine which network generates the most similar network, most similar network based on introversion, and most dissimilar network based on introversion.</p>
+<p>Overall, type 1 network (texted last week) has high measure of similarity.</p>
+<p>Type 1 network also generates the most similar network in terms of introversion, since it has the highest introversion-based assortativity value 0.1348994.</p>
+<p>Tie Type 3 (is my friend) is the most dissimilar network in terms of introversion since it has the lowest introversion-based assortativity value -0.02886641. This means people are friends with each other regardless of whether they are introverted or not.</p>
+<pre><code>## Overall network assortativity: 0.07348968</code></pre>
+<pre><code>## Overall network assortativity based on Extraversion/Introversion: 0.0348225</code></pre>
+<pre><code>## Tie type 1 network assortativity: 0.1228057</code></pre>
+<pre><code>## Tie type 1 network assortativity based on Extraversion/Introversion: 0.1348994</code></pre>
+<pre><code>## Tie type 2 network assortativity: -0.2405615</code></pre>
+<pre><code>## Tie type 2 network assortativity based on Extraversion/Introversion: -0.0183015</code></pre>
+<pre><code>## Tie type 3 network assortativity: 0.02809497</code></pre>
+<pre><code>## Tie type 3 network assortativity based on Extraversion/Introversion: -0.02886641</code></pre>
+<pre><code>## Tie type 4 network assortativity: -0.1294851</code></pre>
+<pre><code>## Tie type 4 network assortativity based on Extraversion/Introversion: 0.01731216</code></pre>
+<pre><code>## Tie type 5 network assortativity: -0.06440357</code></pre>
+<pre><code>## Tie type 5 network assortativity based on Extraversion/Introversion: 0.06063195</code></pre>
 </div>
 
 
