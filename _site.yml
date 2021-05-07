@@ -4,14 +4,14 @@ navbar:
   title: "Jimena Velazquez de Leon"
   left:
    left:
-    - text: "Introduction"
-      href: Introduction.html
-    - text: "Methodology"
-      href: Methodology.html
-    - text: "Results"
-      href: Results.html
+    - text: "Index"
+      href: index.html
+    - text: "Homework 9"
+      href: twitter.md
+    - text: "homework_10"
+      href: homework10.rmd
     - text: "Conclusion"
-      href: Conclusion.html
+      href: conclusion.html
 output:
   html_document:
     theme: simplex
