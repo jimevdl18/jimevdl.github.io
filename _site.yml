@@ -6,8 +6,6 @@ navbar:
    left:
     - text: "Index"
       href: index.html
-    - text: "Homework 9"
-      href: twitter.html 
     - text: "Homework 10"
       href: homework10.html
     - text: "Conclusion"
