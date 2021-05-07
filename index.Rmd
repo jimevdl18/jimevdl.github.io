@@ -5,8 +5,120 @@ date: "5/7/2021"
 output: html_document
 ---
 
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+#install.packages("network")
+#install.packages("igraph")
+library(readr)
+library(dplyr)
+library(tidyverse)
+library(network)
+library(igraph)
+setwd("~/Desktop/BDS 516/git/jimevdl18")
 ```
 
-Welcome to my website! 
+
+Homework 10 
+
+**Group Members:** Arvind Bala, Ben Brikman, Jimena Velazquez, Minglu Xu, Eva Zhang
+
+# Question 1
+We prepared the data for the network analysis by creating a separate edge and node list.
+
+```{r, echo = F, include = F}
+# Load data, create nodelist and edgelist
+
+hw10_data <- read_csv("hw10_data.csv")
+hw10_data = hw10_data[-1,]
+hw10_data <- hw10_data[!is.na(hw10_data$Q2), ]
+
+nodelist <- select(hw10_data,Q2,Q4) %>% 
+  rename('ID' = Q2, 'Extraversion' = Q4) %>% 
+  transform(ID = as.numeric(ID)) %>% 
+  add_row(ID = 3, Extraversion = NA) %>% 
+  add_row(ID = 4, Extraversion = NA) %>%
+  add_row(ID = 8, Extraversion = NA) %>%
+  add_row(ID = 9, Extraversion = NA) %>%
+  add_row(ID = 10, Extraversion = NA) %>%
+  add_row(ID = 11, Extraversion = NA) %>%
+  add_row(ID = 12, Extraversion = NA) %>%
+  add_row(ID = 13, Extraversion = NA) %>%
+  add_row(ID = 14, Extraversion = NA) %>%
+  add_row(ID = 16, Extraversion = NA) %>%
+  add_row(ID = 19, Extraversion = NA) %>%
+  add_row(ID = 21, Extraversion = NA) %>%
+  add_row(ID = 22, Extraversion = NA) %>%
+  add_row(ID = 25, Extraversion = NA) %>%
+  add_row(ID = 26, Extraversion = NA) %>%
+  add_row(ID = 27, Extraversion = NA) %>%
+  add_row(ID = 29, Extraversion = NA) %>%
+  add_row(ID = 37, Extraversion = NA) %>%
+  add_row(ID = 39, Extraversion = NA) 
+
+edgelist <- select(hw10_data,-Q4)
+edgelist <- edgelist %>% 
+  pivot_longer(!Q2, names_to = 'in-tie', values_to = 'tie-num', values_drop_na = TRUE) %>% 
+  rename('out-tie' = Q2) %>% 
+  separate('tie-num', into = c("1", "2","3","4","5"), sep = ",") %>% 
+  pivot_longer('1':'5', names_to = 'number', values_to = 'tie-type', values_drop_na = TRUE) %>% 
+  select('out-tie', 'in-tie', 'tie-type') 
+edgelist$`in-tie` <- gsub("^.{0,3}", "", edgelist$`in-tie`)
+```
+
+# Question 2
+*Calculate measures of centrality and similarity in networks depending on tie-type?
+Which tie type generates the most similar network in terms of introversion? 
+Which tie type is the most dissimilar?*
+
+**Network Visualization by Tie Type**
+
+We start our analysis by visualizing the overall network and the 5 networks
+filtered by the 5 tie types. It's interesting to observe that
+networks based on tie type 3, 4, 5 have relatively more isolated nodes. These ties 
+describes friendships and relations of asking/being asked for help. Perhaps 
+remote learning has impacted people's ability to make friends in the program.
+
+```{r, echo = F}
+detach(package:network)
+newnetwork <- graph_from_data_frame(d = edgelist, vertices = nodelist, directed = TRUE)
+# Plot overall network of all ties
+plot(newnetwork, edge.arrow.size = 0.1, vertex.size = 3, main = "Overall Network")
+
+# Plot overall network varying node size based on number of ties
+#deg <- degree(newnetwork, mode="all")
+#plot(newnetwork, vertex.size=deg/10, edge.arrow.size = 0.1, main = "Overall Network")
+
+# filter by all 5 tie types
+edgelist_1 <- edgelist %>% filter(`tie-type` == 1)
+edgelist_2 <- edgelist %>% filter(`tie-type` == 2)
+edgelist_3 <- edgelist %>% filter(`tie-type` == 3)
+edgelist_4 <- edgelist %>% filter(`tie-type` == 4)
+edgelist_5 <- edgelist %>% filter(`tie-type` == 5)
+
+# Tie type 1 plot
+newnetwork_1 <- graph_from_data_frame(d = edgelist_1, vertices = nodelist, directed = TRUE)
+plot(newnetwork_1, edge.arrow.size = 0.1, vertex.size = 3, 
+     main = "Tie Type 1 Network - Messaged Last Week")
+
+# Tie type 2 plot
+newnetwork_2 <- graph_from_data_frame(d = edgelist_2, vertices = nodelist, directed = TRUE)
+plot(newnetwork_2, edge.arrow.size = 0.1, vertex.size = 3, 
+     main = "Tie Type 2 Network - Met During MBDS")
+
+# Tie type 3 plot
+newnetwork_3 <- graph_from_data_frame(d = edgelist_3, vertices = nodelist, directed = TRUE)
+plot(newnetwork_3, edge.arrow.size = 0.1, vertex.size = 3, 
+     main = "Tie Type 3 Network - Is My Friend")
+
+# Tie type 4 plot
+newnetwork_4 <- graph_from_data_frame(d = edgelist_4, vertices = nodelist, directed = TRUE)
+plot(newnetwork_4, edge.arrow.size = 0.1, vertex.size = 3, 
+     main = "Tie Type 4 Network - I Ask for Help")
+
+# Tie type 5 plot
+newnetwork_5 <- graph_from_data_frame(d = edgelist_5, vertices = nodelist, directed = TRUE)
+plot(newnetwork_5, edge.arrow.size = 0.1, vertex.size = 3, 
+     main = "Tie Type 5 Network - Asks Me for Help")
+```
